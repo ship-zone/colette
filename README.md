@@ -18,7 +18,7 @@ Colette was co-financed by [Jolibrain](https://www.jolibrain.com/), [CNES](https
 
 ## Demo
 
-
+![](https://www.colette.chat/img/screenshot_1.png)
 
 ## Key Features
 
@@ -190,4 +190,4 @@ The main FAQ is [Colette FAQ](https://www.colette.chat/doc/faq)
 
 - Colette generates errors, or you have difficulties installing it ?
 
-  Look at the list of [issues](), and if your problem is not listed already, write a new one.
+  Look at the list of [issues](https://github.com/jolibrain/colette/issues), and if your problem is not listed already, write a new one.
