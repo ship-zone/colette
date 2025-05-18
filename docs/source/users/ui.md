@@ -29,7 +29,7 @@ APPS_PATH=<path to the location where Colette will store its data>
 MODELS_PATH=<path to the location where Colette will store its models>
 DATA_PATH=<path to the location where Colette will find the documents to be indexed>
 APP_NAME=<name of your application>
-HUGGINGFACE_TOKEN=<your_token>
+HF_TOKEN=<your_token>
 ```
 
 For example:
