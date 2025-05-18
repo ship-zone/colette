@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "Colette"
-copyright = "2024-2025, CNES"
+copyright = "2024-2025, Jolibrain, CNES"
 author = "Jolibrain"
 
 # -- General configuration ---------------------------------------------------
