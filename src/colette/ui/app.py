@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+from dotenv import load_dotenv
 
 import gradio as gr
 from gradio_i18n import Translate
@@ -22,6 +23,9 @@ from colette.ui.utils.logger import log_file, logger
 from colette.ui.utils.namesgenerator import get_random_name
 
 ASSETS_DIR = Path(__file__).parent / "assets"
+
+# Load .env if it exists
+load_dotenv()
 
 def create_gradio_interface(config_path):
     # Initialize configuration and applications
