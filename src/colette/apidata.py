@@ -91,7 +91,7 @@ class RAGObj(BaseModel):
     (diff to the existing index is automatically discovered) """
     top_k: int = 4
     """ Top-k documents retrieved by RAGs. Note: internally more may be retrieved, but top-k are surfaced """
-    remove_duplicates: bool = True
+    remove_duplicates: bool = False
     """ Whether to remove duplicates """
     num_partitions: int = -1
     """ Colbert-only: number of clustering partitions, if unset, internally evaluated """
@@ -214,7 +214,6 @@ class LLMModelObj(BaseModel):
     """ Whether to rephrase queries (V-RAG) only """
     query_rephrasing_num_tok: int = 512
     """ Number of token for rephrasing queries (V-RAG) only """
-
     external_vllm_server: VLLMServerObj = Field(default_factory=VLLMServerObj)
     """ vllm server parameters """
 
