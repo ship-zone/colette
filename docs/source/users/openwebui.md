@@ -10,14 +10,14 @@ cd colette
 pip install -e .[dev,trag]
 ```
 
-It is strongly recommanded to create a virtual environnement
+It is strongly recommanded to create a virtual environnement before installing dependencies
 
 ---
 
 ### 2. Launch the server
 
 ```bash
-server/run.sh --host 0.0.0.0 --port 8889 --reload-exclude='apps/*:colette_applications/*'
+bash server/run_openwebui.sh
 ```
 
 ---
