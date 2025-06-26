@@ -145,10 +145,14 @@ class HTTPJsonApi(JSONApi):
         }
     
     async def chat_completion(self, request : ChatCompletionRequest, response: Response) :
+        """
+        Chat completions endpoint
+        """
+
         service = request.model[len(NAME_PREFIX):]
         self.logger_api.debug(f"Service name : {service}")
         query = request.messages[-1].content
-        with open('/home/ad/bodint/data/colette/src/colette/config/message_example.json', 'r') as file:
+        with open('colette/config/message_example.json', 'r') as file:
             message_template = json.load(file)
         message_template["parameters"]["input"]["message"] = query
         api_data_query = APIData(**message_template)
@@ -159,7 +163,7 @@ class HTTPJsonApi(JSONApi):
         for item in sorted(context_items, key=lambda x: x.get("distance", 0), reverse=True):
             d = item.get("distance", 0)
             path = item.get("source", "Unknown path")
-            path = path.replace("/home/ad/bodint/data", "")
+            # path = path.replace("/home/xxx/xxx", "")  # To remove the start of the full path
             text = f"Similarity {d*100:.2f} %   (`{path}`)"
             image_url = item.get("content", "")
             link = f"[See source]({image_url})"

@@ -459,19 +459,17 @@ class RAGImgRetriever:
         self.logger.debug(f"retrieved documents: {json.dumps(docs, indent=2)}")
 
         ##- filter docs and add images
-        # docs = self.filter(docs)
-        # self.logger.debug(f"filtered documents: {json.dumps(docs, indent=2)}")
-
-        # Filter function is inconsistent wrt the size of the db (80 seconds to filter 290 docs)
-        # so we just take the top_k docs
-        docs = take_top_k(docs, self.top_k) 
+        docs = self.filter(docs)
 
         return docs
 
     def filter(self, docs):
         # filter only top_k docs based on distance
         # we do not filter based on the distance, as it is already done by the embedder
-        return sort_and_select_top_k(docs, self.top_k, self.remove_duplicates, self.kvstore, self.logger)
+        if self.remove_duplicates :
+            return sort_and_select_top_k(docs, self.top_k, self.remove_duplicates, self.kvstore, self.logger)
+        else:
+            return take_top_k(docs, self.top_k)
 
 
 class RAGImg:
