@@ -80,9 +80,9 @@ Now your backend is ready, let's move to creating the user interface.
 
 ---
 
-### 4. OpenWebUI Instance
+## OpenWebUI Instance
 
-Install OpenWebUI : 
+Install OpenWebUI with : 
 ```bash
 pip install open-webui
 ```
@@ -99,7 +99,7 @@ On your first login you'll need to create an account.
 
 ---
 
-### 5. Link OpenWebUI with your backend
+## Link OpenWebUI with your backend
 
 In order to link your backend with your frontend, click on your name on the bottom left of the UI, then Admin Panel --> Parameters --> Connections 
 
