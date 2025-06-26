@@ -2,7 +2,6 @@ import asyncio
 import json
 import os
 import subprocess
-import time
 from contextlib import asynccontextmanager
 
 import uvicorn
@@ -13,10 +12,7 @@ from pydantic import ValidationError
 from .apidata import (
     APIData,
     APIResponse,
-    ChatCompletionRequest,
-    ChatCompletionResponse,
-    Choice,
-    ChatMessage,
+
 )
 from .jsonapi import (
     JSONApi,
@@ -50,7 +46,6 @@ class HTTPJsonApi(JSONApi):
     def __init__(self, version: str = VERSION) -> None:
         super().__init__()
         self.router = APIRouter(prefix=f"/{version}", tags=[f"{version}"])
-        self.openwebui_router = APIRouter(tags=[f"{version}"])
 
         self.router.add_api_route(
             "/info",
@@ -114,71 +109,11 @@ class HTTPJsonApi(JSONApi):
             response_model=APIResponse,
         )
 
-        self.openwebui_router.add_api_route(
-            "/models",
-            self.get_models,
-            methods=["GET"],
-            description="Get all available models",
-        )
-
-        self.openwebui_router.add_api_route(
-            "/chat/completions",
-            self.chat_completion,
-            methods=["POST"],
-            description="Chat completions endpoint",
-        )
-
     def info(self) -> APIResponse:
         response = self.service_info()
         response.version = version_str
         return response
     
-    async def get_models(self) :
-        """
-        Get all available models
-        """
-        
-        services = self.list_services()
-        return {
-            "data": [{"id": NAME_PREFIX + service, "object": "model", "created": 0, "owned_by": "colette"} for service in services],
-            "object": "list",
-        }
-    
-    async def chat_completion(self, request : ChatCompletionRequest, response: Response) :
-        """
-        Chat completions endpoint
-        """
-
-        service = request.model[len(NAME_PREFIX):]
-        self.logger_api.debug(f"Service name : {service}")
-        query = request.messages[-1].content
-        with open('colette/config/message_example.json', 'r') as file:
-            message_template = json.load(file)
-        message_template["parameters"]["input"]["message"] = query
-        api_data_query = APIData(**message_template)
-        response_service = await self.predict_service(service, api_data_query, response)
-        
-        sources = ""
-        context_items = response_service.sources["context"]
-        for item in sorted(context_items, key=lambda x: x.get("distance", 0), reverse=True):
-            d = item.get("distance", 0)
-            path = item.get("source", "Unknown path")
-            # path = path.replace("/home/xxx/xxx", "")  # To remove the start of the full path
-            text = f"Similarity {d*100:.2f} %   (`{path}`)"
-            image_url = item.get("content", "")
-            link = f"[See source]({image_url})"
-            sources += f"- {text} \n {link}\n"
-        
-        answer = f"**Answer** : {response_service.output}\n #### Sources -> \n{sources}"
-
-        return ChatCompletionResponse(
-            id = "1337",
-            object = "chat.completion",
-            created = int(time.time()),
-            model = request.model,
-            choices = [Choice(message=ChatMessage(role="assistant", content=answer))]
-        )
-
     async def delete_service(self, sname: str) -> APIResponse:
         response = await self.service_delete(sname)
         return response
@@ -260,7 +195,7 @@ app = FastAPI(
     title="Colette {VERSION} server", description=description, version=VERSION, openapi_tags=TAGS, lifespan=lifespan
 )
 app.include_router(http_json_api.router)
-app.include_router(http_json_api.openwebui_router)
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=1873)
