@@ -1,5 +1,5 @@
 ARG GTAG=latest
-FROM colette_gpu_build:$GTAG AS colette_gpu_server
+FROM colette_gpu:$GTAG AS colette_gpu_server
 WORKDIR /app
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
