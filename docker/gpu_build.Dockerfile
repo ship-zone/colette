@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.5.1-devel-ubuntu22.04 AS colette_gpu_build
+FROM nvidia/cuda:12.5.1-devel-ubuntu22.04 AS colette_gpu
 
 LABEL description="LLM application API"
 LABEL maintainer="contact@jolibrain.com"
