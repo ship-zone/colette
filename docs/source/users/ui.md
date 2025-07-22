@@ -2,6 +2,12 @@
 
 ## Server + Web User Interface via Docker Compose
 
+### 0. Get the GPU Colette image
+
+```bash
+docker pull docker.jolibrain.com/colette_gpu
+```
+
 ### 1. Clone the repository
 
 ```bash
