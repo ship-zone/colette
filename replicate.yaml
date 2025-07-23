@@ -1,0 +1,14 @@
+name: colette
+description: "Ask questions about documents using Colette (vision + LLM)."
+predict: predict.py:Predictor
+input:
+  - name: file
+    type: file
+    description: "File to analyze (PDF, image, etc.)"
+    required: true
+  - name: question
+    type: string
+    description: "Your question about the document"
+    required: true
+output:
+  type: string
