@@ -1,8 +1,6 @@
 import os
-import replicate
 import subprocess
 import uuid
-import shutil
 
 class Predictor:
     def setup(self):
@@ -14,9 +12,8 @@ class Predictor:
         with open(filename, "wb") as f:
             f.write(file.read())
 
-        # Run colette CLI on the file
         # Set environment vars Colette expects
-        os.environ["COLETTE_DEVICE"] = "cpu"
+        os.environ["COLETTE_DEVICE"] = "cuda"
         os.environ["COLETTE_CACHE_DIR"] = "/tmp/colette/cache"
 
         # Run Colette command
