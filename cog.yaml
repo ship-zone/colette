@@ -8,6 +8,7 @@ build:
     - tesseract-ocr
   python_packages:
     - tiktoken
+  gpu: true
   run:
     - git clone https://github.com/jolibrain/colette.git /app/colette
     - pip install /app/colette
