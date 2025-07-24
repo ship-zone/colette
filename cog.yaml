@@ -1,0 +1,15 @@
+build:
+  python_version: "3.10"
+  system_packages:
+    - ffmpeg
+    - git
+    - curl
+    - poppler-utils
+    - tesseract-ocr
+  python_packages:
+    - tiktoken
+  run:
+    - git clone https://github.com/jolibrain/colette.git /app/colette
+    - pip install /app/colette
+
+predict: "predict.py:Predictor"
