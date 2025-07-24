@@ -7,9 +7,7 @@ build:
     - curl
     - poppler-utils
     - tesseract-ocr
-  python_packages:
-    - tiktoken
-  gpu: true
+  python_requirements: requirements.txt
   run:
     - git clone https://github.com/jolibrain/colette.git /app/colette
     - pip install /app/colette
